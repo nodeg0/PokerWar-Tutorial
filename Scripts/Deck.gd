@@ -57,6 +57,12 @@ func makedeck():
 		deck.append(card)
 	deck.shuffle()
 
+func reset_table():
+	for i in deck.size():
+		deck[i].kill_card()
+	deck = []
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
