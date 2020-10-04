@@ -78,3 +78,20 @@ func reset_hand():
 	for i in hand.size():
 		hand[i].kill_card()
 	hand = []
+
+func allow_selection(_selectable: bool):
+	for i in hand.size():
+		hand[i].selectable = _selectable
+
+func search_remove_card(_card):
+	var i = hand.find(_card)
+	hand.remove(i)
+
+func _active_card(card):
+	get_tree().call_group("card", "make_active", card)
+
+
+
+
+
+
