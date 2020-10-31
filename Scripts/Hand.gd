@@ -1,24 +1,31 @@
 extends Node2D
 
 onready var Deck = get_node("../Deck")
+onready var CardHolder = $CardHolder
+
 
 var hand = []
 var cardpath = "res://Graphics/Cards/"
 var card_width
+
+export var health = 3 setget set_health
+export var playername = ""
 export var cardscale = Vector2(1.5,1.5)
 
+signal health_change(value)
 
 func draw_cards(num):
 	hand += Deck.give_cards(num)
-	sprite_cards()
+	initialize_cards()
 	place_cards()
 
-func sprite_cards():
+func initialize_cards():
 	var firstpart
 	var secondpart
 	var fullpart
 	for i in hand.size():
 		hand[i].cardscale = cardscale
+		hand[i].cardowner = playername
 		fullpart = ""
 		if hand[i].cardsuit == "spade":
 			firstpart = "Spades_"
@@ -40,6 +47,7 @@ func sprite_cards():
 			secondpart = str(hand[i].cardvalue) + ".png"
 		fullpart = firstpart + secondpart
 		hand[i].change_sprite(cardpath+fullpart)
+		hand[i].connect("active_card", self, "_active_card")
 	
 func place_cards():
 	var path_length = $Path2D.curve.get_baked_length()
@@ -51,7 +59,7 @@ func place_cards():
 		card_width = hand[0].card_width()
 		ideal_cardwidth = card_width * 1.5
 		hand_width = ideal_cardwidth * hand.size()
-		add_child(hand[i])
+		CardHolder.add_child(hand[i])
 
 		space = path_length
 		$Path2D/PathFollow2D.offset = 0.0
@@ -87,9 +95,13 @@ func search_remove_card(_card):
 	var i = hand.find(_card)
 	hand.remove(i)
 
-func _active_card(card):
-	get_tree().call_group("card", "make_active", card)
+func set_health(value):
+	health = value
+	emit_signal("health_change", value)
 
+func _active_card(card):
+	for i in hand.size():
+		hand[i].make_active(card)
 
 
 

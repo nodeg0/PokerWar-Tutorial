@@ -31,3 +31,5 @@ texture = ExtResource( 2 )
 
 [node name="DeckLocation" type="Position2D" parent="."]
 position = Vector2( 300.211, 87.3778 )
+
+[node name="CardHolder" type="Node2D" parent="."]

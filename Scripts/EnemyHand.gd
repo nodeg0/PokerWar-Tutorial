@@ -6,12 +6,13 @@ func pass_card():
 	hand.remove(0)
 	return passed_card
 
-func sprite_cards():
+func initialize_cards():
 	var firstpart
 	var secondpart
 	var fullpart
 	for i in hand.size():
 		hand[i].cardscale = cardscale
+		hand[i].cardowner = playername
 		fullpart = ""
 		if hand[i].cardsuit == "spade":
 			firstpart = "Spades_"

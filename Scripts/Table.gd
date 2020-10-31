@@ -6,6 +6,8 @@ onready var startpoint = $LeftPoint
 func draw_flop():
 	draw_cards(3)
 
+func draw_street():
+	draw_cards(1)
 
 func place_cards():
 

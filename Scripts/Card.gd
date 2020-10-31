@@ -7,6 +7,7 @@ var dealt = false
 var selectable = false setget set_selectable
 var selected_card = false
 var front_sprite_path
+var cardowner
 
 export (int) var focus_move_on_y = 40
 export (Texture) var cardsprite
@@ -16,9 +17,6 @@ var handrotation = Vector2.ZERO
 
 signal active_card(node)
 signal card_selected(node)
-
-func _ready() -> void:
-	connect("active_card", get_parent(), "_active_card")
 
 func set_selectable(val):
 	selectable = val

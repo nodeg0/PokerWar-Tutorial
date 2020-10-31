@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Graphics/kenny1bit.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/UI.gd" type="Script" id=2]
+[ext_resource path="res://Graphics/UI/HeartFull.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/UI/HeartEmpty.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -65,3 +67,60 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DisplayAlert = SubResource( 2 )
+
+[node name="HealthContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyHEmpty" type="TextureRect" parent="HealthContainer"]
+margin_right = 48.0
+margin_bottom = 12.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyHFull" type="TextureRect" parent="HealthContainer"]
+margin_right = 48.0
+margin_bottom = 12.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="PlayerHEmpty" type="TextureRect" parent="HealthContainer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -208.0
+margin_top = -56.0
+margin_right = -162.0
+margin_bottom = -44.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHFull" type="TextureRect" parent="HealthContainer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -208.0
+margin_top = -56.0
+margin_right = -162.0
+margin_bottom = -44.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
