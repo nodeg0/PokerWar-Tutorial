@@ -1,7 +1,9 @@
 extends Area2D
 
+#onready var Tween = $Tween
+
 var cardname
-var cardvalue
+var cardvalue = 0
 var cardsuit
 var dealt = false
 var selectable = false setget set_selectable
@@ -22,12 +24,13 @@ func set_selectable(val):
 	selectable = val
 
 func move_card(dest, rotate = null, _scale = null):
-		$Tween.interpolate_property(self, "position" , position, dest, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
-		if rotate != null:
-			$Tween.interpolate_property(self, "rotation", rotation, rotate, 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN)
-		if _scale != null:
-			$Tween.interpolate_property(self, "scale", scale, _scale, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
-		$Tween.start()
+
+	$Tween.interpolate_property(self, "position" , position, dest, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
+	if rotate != null:
+		$Tween.interpolate_property(self, "rotation", rotation, rotate, 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	if _scale != null:
+		$Tween.interpolate_property(self, "scale", scale, _scale, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
+	$Tween.start()
 
 func change_sprite(res):
 	$Sprite.texture = load(res)
@@ -40,10 +43,12 @@ func card_width():
 	return cardwidth
 
 func kill_card():
-	queue_free()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	if !$Tween.is_active():
+		queue_free()
+	else:
+		yield($Tween, "tween_all_completed")
+		queue_free()
+
 func make_focus():
 	if selectable:
 		var position_shift = position
@@ -64,7 +69,7 @@ func make_active(card):
 	if card != self:
 		off_focus()
 
-func _on_Card_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_Card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("left_click") and selected_card:
 			selected_card = false

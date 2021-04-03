@@ -18,6 +18,6 @@ curve = SubResource( 1 )
 
 [node name="PathFollow2D" parent="Path2D" index="0"]
 position = Vector2( 140.37, 199.104 )
-rotation = -1.83659
+rotation = -1.83658
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="2"]
