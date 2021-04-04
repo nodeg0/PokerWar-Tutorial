@@ -82,6 +82,9 @@ func place_cards():
 			$Path2D/PathFollow2D.offset += ideal_cardwidth
 		$Path2D/PathFollow2D.offset = 0.0
 
+func get_hand():
+	return hand
+
 func reset_hand():
 	for i in hand.size():
 		hand[i].kill_card()
