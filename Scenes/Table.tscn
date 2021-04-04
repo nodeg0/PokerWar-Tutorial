@@ -10,5 +10,3 @@ position = Vector2( 289, 55 )
 
 [node name="LeftPoint" type="Position2D" parent="."]
 position = Vector2( 97, 208 )
-
-[node name="CardHolder" type="Node2D" parent="."]

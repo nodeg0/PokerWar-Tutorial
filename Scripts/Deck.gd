@@ -41,7 +41,7 @@ func give_cards(num):
 	var cardreturn = []
 	for i in num:
 		cardreturn.append(deck[i])
-#		print(cardreturn[i].cardname)
+		print(cardreturn[i].cardname)
 	for i in cardreturn.size():
 		deck.remove(0)
 	return cardreturn

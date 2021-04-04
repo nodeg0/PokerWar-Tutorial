@@ -65,11 +65,11 @@ func place_cards():
 		$Path2D/PathFollow2D.offset = 0.0
 		if hand_width < path_length:
 			$Path2D/PathFollow2D.offset = (space - hand_width)/2
-#
-#			print("ideal cardwidth space: " + str(ideal_cardwidth))
-#		else:
-#			ideal_cardwidth = space / hand.size()
-#			print("ideal cardwidth crowded: " + str(ideal_cardwidth))
+
+			print("ideal cardwidth space: " + str(ideal_cardwidth))
+		else:
+			ideal_cardwidth = space / hand.size()
+			print("ideal cardwidth crowded: " + str(ideal_cardwidth))
 		
 		for card in hand.size():
 			if !hand[card].dealt:
@@ -81,9 +81,6 @@ func place_cards():
 
 			$Path2D/PathFollow2D.offset += ideal_cardwidth
 		$Path2D/PathFollow2D.offset = 0.0
-
-func get_hand():
-	return hand
 
 func reset_hand():
 	for i in hand.size():
@@ -102,11 +99,11 @@ func set_health(value):
 	health = value
 	emit_signal("health_change", value)
 
-func print_hand_values():
-	print("Hand")
-	for i in hand.size():
-		print(hand[i].cardvalue)
-
 func _active_card(card):
 	for i in hand.size():
 		hand[i].make_active(card)
+
+
+
+
+

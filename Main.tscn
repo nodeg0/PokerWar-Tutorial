@@ -82,14 +82,6 @@ cardscale = Vector2( 1, 1 )
 [node name="Path2D" parent="CardController/EnemyHand" index="0"]
 position = Vector2( 128, -72 )
 
-[node name="PathFollow2D" parent="CardController/EnemyHand/Path2D" index="0"]
-position = Vector2( 44.6575, 202.961 )
-rotation = 1.98875
-offset = 129.304
-
-[node name="DeckSpawner" parent="CardController/EnemyHand/Path2D/PathFollow2D" index="0"]
-rotation = 3.14159
-
 [node name="Table" parent="CardController" instance=ExtResource( 5 )]
 cardscale = Vector2( 1, 1 )
 
