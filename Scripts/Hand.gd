@@ -13,6 +13,7 @@ export var playername = ""
 export var cardscale = Vector2(1.5,1.5)
 
 signal health_change(value)
+signal dead()
 
 func draw_cards(num):
 	hand += Deck.give_cards(num)
@@ -101,6 +102,8 @@ func search_remove_card(_card):
 func set_health(value):
 	health = value
 	emit_signal("health_change", value)
+	if health <= 0: 
+		emit_signal("dead")
 
 func _active_card(card):
 	for i in hand.size():

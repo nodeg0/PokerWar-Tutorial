@@ -27,6 +27,8 @@ var player_card
 var enemy_card 
 var poker_calculating = true
 var endround = false
+var player_dead = false
+var enemy_dead = false
 
 var playerPokerData = {
 	"name": "player",
@@ -67,7 +69,7 @@ func _ready():
 	Warcards.enemy_card = enemy_card
 	gamestate = SELECT_CARD
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	match gamestate:
 		SELECT_CARD:
 			if currentround == START:
@@ -102,7 +104,18 @@ func _process(delta: float) -> void:
 				poker_calculating = false
 
 		ENDROUND:
-			UI.send_alert("game over")
+			var quip = ""
+			if !endround:
+				if player_dead:
+					quip = "you were killed by " + Enemy.name
+				elif enemy_dead:
+					quip = "you killed " + Enemy.name
+				if quip != "":
+					UI.send_alert(quip)
+				UI.send_alert("game over")
+			if !UI.still_running():
+				var _err = get_tree().reload_current_scene()
+			endround = true
 
 func deal_damage(cardowner):
 	if Player.playername == cardowner:
@@ -179,11 +192,11 @@ func build_cardcombos(table, hole):
 	return combos
 
 func straight_flush_check(dict,cardcombos):
-	var besthand = dict["besthand"]
 #	var handrank = dict["handrank"]
 #	var main_value = dict["main_value"]
 #	print("str8 flush check")
 	for hands in cardcombos.size():
+		var besthand = dict["besthand"]
 		ace_check_straight(cardcombos[hands])
 		cardcombos[hands].sort_custom(self, "sort_by_value")
 		if straight_evaluate(cardcombos[hands]) && flush_evaluate(cardcombos[hands]):
@@ -955,5 +968,15 @@ func _on_EndWarTimer_timeout() -> void:
 		currentround += 1
 	else:
 		gamestate = POKER_EVALUATE
-	if gamestate == SELECT_CARD:
+	if player_dead || enemy_dead:
+		gamestate = ENDROUND
+	elif gamestate == SELECT_CARD:
 		gamestate = DRAW_STREET
+
+
+func _on_PlayerHand_dead():
+	player_dead = true
+
+
+func _on_EnemyHand_dead():
+	enemy_dead = true

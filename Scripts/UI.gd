@@ -21,21 +21,26 @@ func _process(delta):
 func send_alert(msg):
 	msgqueue.append(msg)
 
+func still_running():
+	if msgqueue.size() != 0 or $AnimationPlayer.is_playing() == true:
+		return true
+	else: 
+		return false
 
 func _on_PlayerHand_health_change(value) -> void:
 	var hidehealth = false
 	PlayerHealth.rect_size.x = 16 * value + 1
-	if value <= 18:
-		hidehealth = true
-	else:
+	if value <= 0:
 		hidehealth = false
+	else:
+		hidehealth = true
 	PlayerHealth.visible = hidehealth
 
 func _on_EnemyHand_health_change(value) -> void:
 	var hidehealth = false
 	EnemyHealth.rect_size.x = 16 * value + 1
-	if value <= 18:
-		hidehealth = true
-	else:
+	if value <= 0:
 		hidehealth = false
+	else:
+		hidehealth = true
 	PlayerHealth.visible = hidehealth

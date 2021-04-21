@@ -100,7 +100,9 @@ tile_data = PoolIntArray( 720902, 0, 0, 720903, 0, 1, 720904, 0, 1, 720905, 0, 1
 
 [node name="EndWarTimer" type="Timer" parent="."]
 one_shot = true
+[connection signal="dead" from="CardController/PlayerHand" to="." method="_on_PlayerHand_dead"]
 [connection signal="health_change" from="CardController/PlayerHand" to="UI" method="_on_PlayerHand_health_change"]
+[connection signal="dead" from="CardController/EnemyHand" to="." method="_on_EnemyHand_dead"]
 [connection signal="health_change" from="CardController/EnemyHand" to="UI" method="_on_EnemyHand_health_change"]
 [connection signal="war_played" from="CardController/WarCards" to="." method="_on_WarCards_war_played"]
 [connection signal="timeout" from="EndWarTimer" to="." method="_on_EndWarTimer_timeout"]

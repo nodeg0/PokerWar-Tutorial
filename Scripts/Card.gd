@@ -8,6 +8,8 @@ var selectable = false setget set_selectable
 var selected_card = false
 var front_sprite_path
 var cardowner
+var touchable = true
+
 
 export (int) var focus_move_on_y = 40
 export (Texture) var cardsprite
@@ -64,10 +66,18 @@ func make_active(card):
 	if card != self:
 		off_focus()
 
-func _on_Card_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.is_action_pressed("left_click") and selected_card:
-			selected_card = false
-			emit_signal("card_selected", self)
-		if !selected_card:
-			make_focus()
+func _on_Card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if touchable:
+		if event is InputEventMouseButton || event is InputEventScreenTouch:
+			if event.is_action_pressed("left_click") and selected_card || event.is_pressed() and selected_card  :
+				selected_card = false
+				emit_signal("card_selected", self)
+				touchable = false
+				$Touch_Timer.start()
+			elif !selected_card and event.is_action_pressed("left_click")|| !selected_card and event.is_pressed() :
+				touchable = false
+				$Touch_Timer.start()
+				make_focus()
+
+func _on_Touch_Timer_timeout():
+	touchable = true

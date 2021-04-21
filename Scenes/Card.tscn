@@ -20,4 +20,9 @@ z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Touch_Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 [connection signal="input_event" from="." to="." method="_on_Card_input_event"]
+[connection signal="timeout" from="Touch_Timer" to="." method="_on_Touch_Timer_timeout"]
